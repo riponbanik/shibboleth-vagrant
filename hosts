@@ -1,2 +1,8 @@
 [all]
-vagrant.local
+fed.lab.local
+
+[all:vars]
+ansible_connection=ssh
+ansible_ssh_user=vagrant
+ansible_become=true
+ansible_ssh_pass=vagrant

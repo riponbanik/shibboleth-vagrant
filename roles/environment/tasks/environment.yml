@@ -1,11 +1,12 @@
 ---
-    - name: Install apache, mod_ssl, wget, vim
+    - name: Install packages
       yum: pkg={{ item }} state=present
       with_items:
       - vim-enhanced
       - httpd
       - mod_ssl
       - wget
+      - git
 
     - name: Create download directory
       file: path={{ download_dir }} state=directory
@@ -14,10 +15,18 @@
       file: path=/var/www/html/secure state=directory
 
     - name: Download java
-      command: 'wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.tar.gz -O {{ download_dir }}/jdk-8u45-linux-x64.tar.gz'
+      #command: 'wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" {{ jdk_download_path }}/{{ jdk_download_file }} -O {{ download_dir }}/{{ jdk_download_file }}'
+      get_url:
+        url: '{{ jdk_download_path }}/{{ jdk_download_file }}'
+        dest: '{{ download_dir }}/{{ jdk_download_file }}'
+        headers: 'Cookie: oraclelicense=accept-securebackup-cookie'      
 
     - name: Download JCE
-      command: 'wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip -O {{ download_dir }}/jce_policy-8.zip'
+      # command: 'wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip -O {{ download_dir }}/jce_policy-8.zip'
+      get_url:  
+        url: http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip
+        dest: '{{ download_dir }}/jce_policy-8.zip'
+        headers: 'Cookie: oraclelicense=accept-securebackup-cookie'
 
     - name: Create profile.d files
       template: src=profile.d/{{ item.src }} dest=/etc/profile.d/{{ item.dest }}

@@ -5,6 +5,7 @@
    - vars/default.yml
 
   roles:
+    - { role: geerlingguy.repo-epel, tags: ["epel"] }
     - { role: environment, tags: ["environment"] }
     - { role: tomcat, tags: ["tomcat"] }
     - { role: shibboleth-idp, tags: ["shibboleth-idp"] }

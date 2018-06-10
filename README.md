@@ -83,6 +83,6 @@ You can use phpLdapAdmin application to manage users that are allowed to authent
 * Shibboleth IdP - /opt/shibboleth-idp
 * Shibboleth SP - /etc/shibboleth
 * Apache httpd - /etc/httpd
-* Java - /opt/jdk1.8.0_45/
+* Java - /opt/jdk1.8.0_172/
 * Tomcat - /opt/apache-tomcat-8.0.30
 * OpenLDAP - /etc/openldap
