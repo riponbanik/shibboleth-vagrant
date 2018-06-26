@@ -1,5 +1,5 @@
 [all]
-fed.lab.local
+vagrant.local
 
 [all:vars]
 ansible_connection=ssh
